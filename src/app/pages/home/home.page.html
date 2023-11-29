@@ -15,6 +15,10 @@
           Iniciar Captura de Localização
         </ion-button>
       </ion-col>
-    </ion-row>   
+    </ion-row>  
+    
+    <ion-item *ngFor="let contact of contacts">
+        <ion-label>{{contact.name}}</ion-label>
+    </ion-item>
   </ion-grid>
 </ion-content>

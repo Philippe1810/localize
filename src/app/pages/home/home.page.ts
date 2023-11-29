@@ -21,6 +21,14 @@ export class HomePage implements OnInit {
     });
   }
 
+  ionViewWillEnter() {
+    this.loadContacts();
+  }
+
+  async loadContacts() {
+    this.contacts = await this.contactService.getAll();
+  }
+
   navigateToContactList() {
     this.router.navigate(['/contacts']);
   }
