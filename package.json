@@ -20,7 +20,7 @@
     "@angular/forms": "^17.0.2",
     "@angular/platform-browser": "^17.0.2",
     "@angular/platform-browser-dynamic": "^17.0.2",
-    "@angular/router": "^17.0.2",
+    "@angular/router": "^17.0.4",
     "@awesome-cordova-plugins/background-geolocation": "^6.4.0",
     "@awesome-cordova-plugins/geolocation": "^6.4.0",
     "@awesome-cordova-plugins/sms": "^6.4.0",
