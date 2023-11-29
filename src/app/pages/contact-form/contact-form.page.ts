@@ -43,15 +43,15 @@ export class ContactFormPage implements OnInit {
       });
       toast.present();
 
-    } catch (error) {
+    } catch (error: any) {
       const toast = await this.toasCtrl.create({
-        header: 'Erro',
-        message: 'Ocorreu um erro ao tentar salvar o contato',
-        color: 'danger',
-        position: 'bottom',
-        duration: 3000
+         header: 'Erro',
+         message: 'Ocorreu um erro ao tentar salvar o contato: ' + error.message,
+         color: 'danger',
+         position: 'bottom',
+         duration: 3000
       });
       toast.present();
-    }
+     }
   }
 }
