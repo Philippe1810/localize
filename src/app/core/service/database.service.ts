@@ -24,28 +24,23 @@ export class DatabaseService {
  async createDatabase() {
   const sqlCreateDatabase = this.getCreateTable();
   const result = await this.sqlitePorter.importSqlToDb(this.db, sqlCreateDatabase);
-  await this.createContactsTable(); // Adicione esta linha
   return result ? true : false;
  }
  
- async createContactsTable() {
-  const sql = 'CREATE TABLE IF NOT EXISTS contacts (id integer primary key, firstname text, lastname text)';
-  const result = await this.db?.executeSql(sql, []);
-  return result ? true : false;
- }
  
  getCreateTable() {
   const sqls: string[] = [];
-  sqls.push('CREATE TABLE IF NOT EXISTS Contato (id_contato integer primary key AUTOINCREMENT, nome_contato varchar(100), telefone_contato varchar(15));');
+  sqls.push('CREATE TABLE IF NOT EXISTS contacts (id integer primary key AUTOINCREMENT, name text, phoneNumber text);');
   sqls.push('CREATE TABLE IF NOT EXISTS Usuario (id_usuario integer primary key AUTOINCREMENT, nome_usuario varchar(100), telefone_usuario varchar(15));');
   return sqls.join('\n');
  }
 
  async executeSQL(sql: string, params?: any[]) {
-    if (this.db) {
-       return this.db.executeSql(sql, params);
-    } else {
-       throw new Error('O banco de dados não foi inicializado.');
-    }
-   }
+  if (this.db) {
+      const sqlNew = sql.replace(/name/g, 'firstname');
+      return this.db.executeSql(sqlNew, params);
+  } else {
+      throw new Error('O banco de dados não foi inicializado.');
+  }
+}
 }
