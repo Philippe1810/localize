@@ -31,6 +31,7 @@ export class DatabaseService {
  getCreateTable() {
   const sqls: string[] = [];
   sqls.push('CREATE TABLE IF NOT EXISTS contacts (id integer primary key AUTOINCREMENT, name text, phoneNumber text);');
+  sqls.push('CREATE TABLE IF NOT EXISTS user (id integer primary key AUTOINCREMENT, name text, phoneNumber text);');
   return sqls.join('\n');
  }
 
