@@ -5,20 +5,28 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
     <ion-row>
       <ion-col size="12">
-        <ion-button expand="block" color="secondary" routerLink="/contacts">
-          Ver Lista de Contatos
-        </ion-button>
         <ion-button expand="block" color="primary" (click)="startLocationTracking()">
-          Iniciar Captura de Localização
+          Ativar Rastreamento
         </ion-button>
       </ion-col>
     </ion-row>  
     
-    <ion-item *ngFor="let contact of contacts">
-        <ion-label>{{contact.name}}</ion-label>
-    </ion-item>
-  </ion-grid>
+    <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <!-- Cabeçalho da Tabela -->
+            <ion-row>
+              <ion-col size="8">Contatos</ion-col>
+              <ion-col size="4" routerLink="/contacts">Editar</ion-col>
+            </ion-row>
+    
+            <!-- Linhas da Tabela -->
+            <ion-item *ngFor="let contact of contacts">
+              <ion-label>{{contact.name}}</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
