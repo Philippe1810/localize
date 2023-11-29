@@ -17,17 +17,17 @@ export class ContactService {
     }
   }
 
-  private insert (contact: Contact) {
-    const sql = 'insert into contacts (name) values (?)';
-    const data = [contact.name];
-
+  private insert(contact: Contact) {
+    const sql = 'INSERT INTO contacts (name, phoneNumber) VALUES (?, ?)';
+    const data = [contact.name, contact.phoneNumber];
+  
     return this.db.executeSQL(sql, data);
   }
 
-  private update (contact: Contact) {
-    const sql = 'update contacts set name = ? where id = ?';
-    const data = [contact.name, contact.id];
-
+  private update(contact: Contact) {
+    const sql = 'UPDATE contacts SET name = ?, phoneNumber = ? WHERE id = ?';
+    const data = [contact.name, contact.phoneNumber, contact.id];
+  
     return this.db.executeSQL(sql, data);
   }
 
@@ -47,6 +47,7 @@ export class ContactService {
       const item = result.rows.item(0);
       contact.id = item.id;
       contact.name = item.name;
+      contact.phoneNumber = item.phoneNumber;
     }
     return contact;
   }
@@ -74,6 +75,7 @@ export class ContactService {
       const contact = new Contact();
       contact.id = item.id;
       contact.name = item.name;
+      contact.phoneNumber = item.phoneNumber;
       contacts.push(contact);
     }
     return contacts;

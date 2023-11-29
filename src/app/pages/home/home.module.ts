@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, FactoryProvider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,15 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { HomePageRoutingModule } from './home-routing.module';
 
 
+export function geolocationFactory() {
+  return Geolocation;
+}
+
+const geolocationProvider: FactoryProvider = {
+  provide: Geolocation,
+  useFactory: geolocationFactory
+};
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +25,6 @@ import { HomePageRoutingModule } from './home-routing.module';
     HomePageRoutingModule
   ],
   declarations: [HomePage],
-  providers: [Geolocation]
+  providers: [geolocationProvider]
 })
 export class HomePageModule {}

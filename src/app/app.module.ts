@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, FactoryProvider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
@@ -17,17 +17,26 @@ import { BackgroundGeolocation } from '@awesome-cordova-plugins/background-geolo
 import { SMS } from '@awesome-cordova-plugins/sms/ngx';
 
 
+export function geolocationFactory() {
+  return Geolocation;
+}
+
+const geolocationProvider: FactoryProvider = {
+  provide: Geolocation,
+  useFactory: geolocationFactory
+};
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
+    geolocationProvider,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     SQLite,
     SQLitePorter,
     SplashScreen,
     // Altere a declaração do StatusBar para o AwesomeStatusBar
     { provide: StatusBar },
-    Geolocation,
     BackgroundGeolocation,
     SMS
   ],

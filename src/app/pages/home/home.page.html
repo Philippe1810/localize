@@ -1,23 +1,20 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>
-        Captura de Localização
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-button (click)="obterLocalizacaoContinua()">Ativar Rastreamento</ion-button>
-    <ion-button (click)="enviarSMS()">Enviar SMS para Contatos</ion-button>
-  
-    <ion-grid *ngIf="contatos.length > 0">
-      <ion-row>
-        <ion-col size="6">Nome</ion-col>
-        <ion-col size="6">Ações</ion-col>
-      </ion-row>
-      <ion-row *ngFor="let contato of contatos">
-        <ion-col size="6">{{ contato.name }}</ion-col>
-        <ion-col size="6"><ion-button (click)="editarContato(contato.id)">Editar</ion-button></ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-content>
+  <ion-toolbar>
+    <ion-title>Captura de Localização</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button expand="block" color="secondary" routerLink="/contacts">
+          Ver Lista de Contatos
+        </ion-button>
+        <ion-button expand="block" color="primary" (click)="startLocationTracking()">
+          Iniciar Captura de Localização
+        </ion-button>
+      </ion-col>
+    </ion-row>   
+  </ion-grid>
+</ion-content>

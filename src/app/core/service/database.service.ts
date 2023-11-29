@@ -34,12 +34,7 @@ export class DatabaseService {
   return sqls.join('\n');
  }
 
- async executeSQL(sql: string, params?: any[]) {
-  if (this.db) {
-      const sqlNew = sql.replace(/name/g, 'firstname');
-      return this.db.executeSql(sqlNew, params);
-  } else {
-      throw new Error('O banco de dados não foi inicializado.');
-  }
+ executeSQL(sql: string, params?: any[]) {
+  return this.db?.executeSql(sql, params);
 }
 }
