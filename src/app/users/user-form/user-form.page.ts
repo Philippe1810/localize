@@ -10,6 +10,7 @@ import { NavController } from '@ionic/angular';
   templateUrl: './user-form.page.html',
   styleUrls: ['./user-form.page.scss'],
 })
+
 export class UserFormPage implements OnInit {
   title: string = 'Novo usuário';
   user: User = new User();
@@ -33,6 +34,44 @@ export class UserFormPage implements OnInit {
   }
 
   async onSubmit() {
+
+    try {
+      const existingUser = await this.userService.getAll();
+
+      if (existingUser.length > 0) {
+        const toast = await this.toasCtrl.create({
+          header: 'Aviso',
+          message: 'Já existe usuário cadastrado!',
+          color: 'warning',
+          position: 'bottom',
+          duration: 3000
+        });
+        toast.present();
+      } else {
+        await this.userService.save(this.user);
+
+        const toast = await this.toasCtrl.create({
+          header: 'Sucesso',
+          message: 'Usuário salvo com sucesso!',
+          color: 'success',
+          position: 'bottom',
+          duration: 3000
+        });
+        toast.present();
+      }
+
+    } catch (error: any) {
+      const toast = await this.toasCtrl.create({
+        header: 'Erro',
+        message: 'Ocorreu um erro ao salvar o usuário: ' + error.message,
+        color: 'danger',
+        position: 'bottom',
+        duration: 3000
+      });
+      toast.present();
+    }
+
+    /*
     try {
       await this.userService.save(this.user);
 
@@ -60,5 +99,11 @@ export class UserFormPage implements OnInit {
   goToHomePage() {
     this.navCtrl.navigateRoot('/home');
   }
+  */
+  }
 
+  goToHomePage() {
+    this.navCtrl.navigateRoot('/home');
+  }
+  
 }
