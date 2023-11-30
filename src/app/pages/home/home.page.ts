@@ -4,6 +4,8 @@ import { Contact } from '../shared/contact';
 import { ContactService } from './../shared/contact.service';
 import { SMS } from '@ionic-native/sms/ngx';
 
+declare var cordova: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -51,5 +53,46 @@ export class HomePage implements OnInit {
         }
       }
     }
+  }
+
+  async sendSMSPlugin(destinationNumber: string, message: string) {
+    return new Promise<void>((resolve, reject) => {
+      cordova.plugins.diagnostic.requestRuntimePermission(
+        cordova.plugins.diagnostic.permission.SEND_SMS,
+        async (status: any) => {
+          if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED) {
+            try {
+              await this.sms.send(destinationNumber, message);
+              resolve();
+            } catch (error) {
+              reject(error);
+            }
+          } else {
+            reject('Permissão para enviar SMS não concedida.');
+          }
+        },
+        (error: any) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  async checkAndRequestPermission() {
+    return new Promise<void>((resolve, reject) => {
+      cordova.plugins.diagnostic.requestRuntimePermission(
+        cordova.plugins.diagnostic.permission.SEND_SMS,
+        (status: any) => {
+          if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED) {
+            resolve();
+          } else {
+            reject('Permissão para enviar SMS não concedida.');
+          }
+        },
+        (error: any) => {
+          reject(error);
+        }
+      );
+    });
   }
 }
