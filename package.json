@@ -38,6 +38,7 @@
     "@ionic-native/sms": "^5.36.0",
     "@ionic/angular": "^7.0.0",
     "@ionic/cordova-builders": "^10.0.0",
+    "cordova.plugins.diagnostic": "^7.1.4",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

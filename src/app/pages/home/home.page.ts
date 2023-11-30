@@ -44,13 +44,14 @@ export class HomePage implements OnInit {
   }
 
   async enviarSMS() {
-    const mensagem = 'Teste';
-    
     for (const contact of this.contacts) {
       const numeroDestino = contact.phoneNumber;
-    
+  
       if (numeroDestino) {
         try {
+          const linkLocalizacao = await this.obterLocalizacao();
+          const mensagem = `Talvez eu esteja precisando de ajuda. Essa é minha localização atual: ${linkLocalizacao}`;
+  
           await this.sms.send(numeroDestino, mensagem);
           console.log('SMS enviado com sucesso para:', numeroDestino);
         } catch (error) {
@@ -101,22 +102,31 @@ export class HomePage implements OnInit {
     });
   }
   
-  async obterLocalizacao() {
-    if ('geolocation' in navigator) {
+  async obterLocalizacao(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
-            (position) => {
-                console.log('Latitude:', position.coords.latitude);
-                console.log('Longitude:', position.coords.longitude);
-                // Aqui você pode usar os dados da localização
-            },
-            (error) => {
-                console.error('Erro ao obter a localização:', error);
-                // Trate os erros adequadamente
-            }
+          (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+  
+            // Construir o link com a latitude e longitude
+            const link = `http://maps.google.com/?q=${latitude},${longitude}`;
+  
+            console.log('Link de Localização:', link); // Mostra o link no console
+  
+            resolve(link);
+          },
+          (error) => {
+            console.error('Erro ao obter a localização:', error);
+            reject(error);
+          }
         );
-    } else {
+      } else {
         console.log('Geolocalização não é suportada neste navegador.');
-        // Forneça uma mensagem ao usuário informando que a geolocalização não é suportada.
-    }
-}
+        reject('Geolocalização não suportada');
+      }
+    });
+  }
+  
 }
