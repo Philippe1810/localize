@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Contact } from '../shared/contact';
 import { ContactService } from './../shared/contact.service';
 import { SMS } from '@ionic-native/sms/ngx';
+import { Platform } from '@ionic/angular';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 
 declare var cordova: any;
 
@@ -17,7 +20,9 @@ export class HomePage implements OnInit {
   constructor(
     private contactService: ContactService,
     private router: Router,
-    private sms: SMS
+    private sms: SMS,
+    private platform: Platform,
+    private geolocation: Geolocation
   ) {}
 
   ngOnInit() {
@@ -95,4 +100,23 @@ export class HomePage implements OnInit {
       );
     });
   }
+  
+  async obterLocalizacao() {
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                console.log('Latitude:', position.coords.latitude);
+                console.log('Longitude:', position.coords.longitude);
+                // Aqui você pode usar os dados da localização
+            },
+            (error) => {
+                console.error('Erro ao obter a localização:', error);
+                // Trate os erros adequadamente
+            }
+        );
+    } else {
+        console.log('Geolocalização não é suportada neste navegador.');
+        // Forneça uma mensagem ao usuário informando que a geolocalização não é suportada.
+    }
+}
 }
