@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<permissions>
+    <feature name="SMS">
+        <param name="android-package" value="android.permission.SEND_SMS" />
+    </feature>
+    <!-- Outras permissões necessárias para o seu aplicativo -->
+</permissions>
