@@ -12,8 +12,6 @@ const routes: Routes = [
   { path: 'user-list', loadChildren: () => import('./users/user-list/user-list.module').then( m => m.UserListPageModule)},
   { path: 'users/new', loadChildren: () => import('./users/user-form/user-form.module').then( m => m.UserFormPageModule)},
   { path: 'users/edit/:id', loadChildren: () => import('./users/user-form/user-form.module').then( m => UserFormPageModule)}
-  //preciso conferir as linhas 13, 14, 15 e 16
-
 ];
 
 @NgModule({

@@ -3,6 +3,7 @@ import { UserService } from '../shared/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { User } from './../shared/user';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-user-form',
@@ -16,7 +17,8 @@ export class UserFormPage implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private toasCtrl: ToastController) { }
+    private toasCtrl: ToastController,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
     const idParam = this.route.snapshot.paramMap.get('id');
@@ -54,4 +56,9 @@ export class UserFormPage implements OnInit {
       toast.present();
      }
   }
+
+  goToHomePage() {
+    this.navCtrl.navigateRoot('/home');
+  }
+
 }
