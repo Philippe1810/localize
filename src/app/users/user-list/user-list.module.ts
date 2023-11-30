@@ -13,7 +13,7 @@ import { UserListPage } from './user-list.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    UserListPageRoutingModule
+    UserListPageRoutingModule,
   ],
   declarations: [UserListPage]
 })

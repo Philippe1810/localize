@@ -5,15 +5,17 @@
 </ion-header>
 
 <ion-content>
+  <!--
   <ion-searchbar placeholder="Pesquisar" (ionClear)="doSearchClear()" (ionChange)="doSearchbarChange($event)">
   </ion-searchbar>
+  -->
 
   <ion-list>
     <ion-item-sliding *ngFor="let user of users">
       <ion-item>
         <ion-label>
           <h2>{{user.name}}</h2>
-          <p>{{user.phone}}</p>
+          <p>{{user.phoneNumber}}</p>
           </ion-label>
       </ion-item>
 

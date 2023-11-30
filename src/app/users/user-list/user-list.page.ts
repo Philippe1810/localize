@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
+import { User } from '../shared/user';
 import { UserService } from '../shared/user.service';
-import { User } from './../shared/user';
 
 @Component({
   selector: 'app-user-list',
@@ -13,18 +13,17 @@ export class UserListPage implements OnInit {
 
   constructor(
     private userService: UserService,
-    private toastctrl: ToastController,
+    private toasCtrl: ToastController,
     private alertCtrl: AlertController) { }
 
   ngOnInit() {
-    
   }
 
   ionViewWillEnter() {
     this.loadUsers();
   }
 
-  async loadUsers(){
+  async loadUsers() {
     this.users = await this.userService.getAll();
   }
 
@@ -32,9 +31,9 @@ export class UserListPage implements OnInit {
     this.loadUsers();
   }
 
-  async doSearchbarChange($event: any) {
+  async doSearchChange($event: any) {
     const value = $event.target.value;
-    if(value && value.length >= 2) {
+    if (value && value.length >= 2) {
       this.users = await this.userService.filter(value);
     }
   }
@@ -42,7 +41,7 @@ export class UserListPage implements OnInit {
   async delete(user: User) {
     const alert = await this.alertCtrl.create({
       header: 'Deletar?',
-      message: `Deseja excluir o usuário: ${user.name}?`,
+      message: `Desejar excluir o usuário: ${user.name}?`,
       buttons: [
         {
           text: 'Cancelar',
@@ -56,6 +55,8 @@ export class UserListPage implements OnInit {
         }
       ]
     });
+
+    await alert.present();
   }
 
   async executeDelete(user: User) {
@@ -65,24 +66,26 @@ export class UserListPage implements OnInit {
       const index = this.users.indexOf(user);
       this.users.splice(index, 1);
 
-      const toast = await this.toastctrl.create({
+      const toast = await this.toasCtrl.create({
         header: 'Sucesso',
-        message: 'Usuário excluído com sucesso.',
+        message: 'Usuário excluído com sucesso',
         color: 'success',
-        position: 'bottom',
         duration: 3000
       });
       toast.present();
 
     } catch (error) {
-      const toast = await this.toastctrl.create({
+      const toast = await this.toasCtrl.create({
         header: 'Erro',
-        message: 'Ocorreu um erro ao excluir o usuário.',
+        message: 'Ocorreu um erro ao tentar excluir o usuário',
         color: 'danger',
-        position: 'bottom',
         duration: 3000
       });
       toast.present();
     }
+  }
+
+  toggleSelect(user: User) {
+    user.selected = !user.selected;
   }
 }

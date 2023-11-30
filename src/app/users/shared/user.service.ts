@@ -18,53 +18,56 @@ export class UserService {
   }
 
   private insert(user: User) {
-    const sql = 'insert into users (name) values (?)';
-    const data = [user.name];
+    const sql = 'INSERT INTO user (name, phoneNumber) VALUES (?, ?)';
+    const data = [user.name, user.phoneNumber];
+  
     return this.db.executeSQL(sql, data);
   }
 
   private update(user: User) {
-    const sql = 'update users set name = ? where id = ?';
-    const data = [user.name, user.id];
+    const sql = 'UPDATE user SET name = ?, phoneNumber = ? WHERE id = ?';
+    const data = [user.name, user.phoneNumber, user.id];
+  
     return this.db.executeSQL(sql, data);
   }
 
-  delete(id: number) {
-    const sql = 'delete from users where id = ?';
+  delete (id: number) {
+    const sql = 'delete from user where id = ?';
     const data = [id];
+
     return this.db.executeSQL(sql, data);
   }
 
   async getById (id: number) {
-    const sql = 'select * from contacts where id = ?';
+    const sql = 'select * from user where id = ?';
     const data = [id];
     const result = await this.db.executeSQL(sql, data);
-    const rows = result.rows;
     const user = new User();
-    if (rows && rows.length > 0) {
-      const item = rows.item(0);
+    if (result.rows && result.rows.length > 0) {
+      const item = result.rows.item(0);
       user.id = item.id;
       user.name = item.name;
+      user.phoneNumber = item.phoneNumber;
     }
     return user;
   }
 
   async getAll() {
-    const sql = 'select * from users';
+    const sql = 'select * from user';
     const result = await this.db.executeSQL(sql);
-    const users = this.fillUsers(result.rows);
+    const users = this.fillUser(result.rows);
     return users;
   }
 
   async filter (text: string) {
-    const sql = 'select * from users where name like ?';
+    const sql = 'select * from user where name like ?';
     const data = [`%${text}%`];
     const result = await this.db.executeSQL(sql, data);
-    const users = this.fillUsers(result.rows);
+    const users = this.fillUser(result.rows);
     return users;
   }
 
-  private fillUsers(rows: any) {
+  private fillUser(rows: any) {
     const users: User[] = [];
 
     for (let i = 0; i < rows.length; i++) {
@@ -72,6 +75,7 @@ export class UserService {
       const user = new User();
       user.id = item.id;
       user.name = item.name;
+      user.phoneNumber = item.phoneNumber;
       users.push(user);
     }
     return users;

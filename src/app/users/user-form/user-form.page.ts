@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../shared/user';
-import { UserService } from './../shared/user.service';
+import { UserService } from '../shared/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { User } from './../shared/user';
 
 @Component({
   selector: 'app-user-form',
@@ -11,17 +11,14 @@ import { ToastController } from '@ionic/angular';
 })
 export class UserFormPage implements OnInit {
   title: string = 'Novo usuário';
-  user?: User;
+  user: User = new User();
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private toastCtrl: ToastController) {
-      this.user = new User();
-     }
+    private toasCtrl: ToastController) { }
 
   ngOnInit() {
-
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.title = 'Editar usuário';
@@ -35,28 +32,26 @@ export class UserFormPage implements OnInit {
 
   async onSubmit() {
     try {
-       if (this.user) {
-         const result = await this.userService.save(this.user);
-         this.user.id = result.insertId;
-   
-         const toast = await this.toastCtrl.create({
-           header: 'Sucesso',
-           message: 'Usuário salvo com sucesso.',
-           color: 'success',
-           position: 'bottom',
-           duration: 3000
-         });
-         toast.present();
-       }
-    } catch (error) {
-       const toast = await this.toastCtrl.create({
+      await this.userService.save(this.user);
+
+      const toast = await this.toasCtrl.create({
+        header: 'Sucesso',
+        message: 'Usuário salvo com sucesso',
+        color: 'success',
+        position: 'bottom',
+        duration: 3000
+      });
+      toast.present();
+
+    } catch (error: any) {
+      const toast = await this.toasCtrl.create({
          header: 'Erro',
-         message: 'Ocorrreu um erro ao salvar o usuário.',
+         message: 'Ocorreu um erro ao tentar salvar o usuário: ' + error.message,
          color: 'danger',
          position: 'bottom',
          duration: 3000
-       });
-       toast.present();
-    }
-   }
+      });
+      toast.present();
+     }
+  }
 }

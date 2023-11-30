@@ -1,5 +1,6 @@
 export class User {
     id?: number;
     name?: string;
-    phone?: string;
+    phoneNumber?: string;
+    selected: boolean = false;
 }

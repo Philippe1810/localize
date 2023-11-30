@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserFormPageModule } from './users/user-form/user-form.module';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'user-form', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)},
   { path: 'contacts', loadChildren: () => import('./pages/contact-list/contact-list.module').then( m => m.ContactListPageModule)},
   { path: 'contacts/new', loadChildren: () => import('./pages/contact-form/contact-form.module').then( m => m.ContactFormPageModule)},

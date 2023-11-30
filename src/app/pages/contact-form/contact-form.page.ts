@@ -11,7 +11,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class ContactFormPage implements OnInit {
   title: string = 'Novo contato';
-  contact: Contact = new Contact(); //alterado
+  contact: Contact = new Contact();
 
   constructor(
     private contactService: ContactService,
