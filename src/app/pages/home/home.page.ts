@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contact } from '../shared/contact';
 import { ContactService } from './../shared/contact.service';
-import { Geolocation } from '@awesome-cordova-plugins/geolocation';
+import { SMS } from '@ionic-native/sms/ngx';
 
 @Component({
   selector: 'app-home',
@@ -12,36 +12,44 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation';
 export class HomePage implements OnInit {
   contacts: Contact[] = [];
 
-
-  constructor(private contactService: ContactService, private router: Router) {}
+  constructor(
+    private contactService: ContactService,
+    private router: Router,
+    private sms: SMS
+  ) {}
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.contactService.getAll().then(contacts => {
       this.contacts = contacts;
     });
   }
 
-  ionViewWillEnter() {
-    this.loadContacts();
-  }
-
   async loadContacts() {
     this.contacts = await this.contactService.getAll();
+    console.log('Contatos obtidos:', this.contacts);
   }
 
   navigateToContactList() {
     this.router.navigate(['/contacts']);
   }
 
-  async startLocationTracking() {
-    try {
-      const position = await Geolocation.getCurrentPosition();
-      console.log('Latitude:', position.coords.latitude);
-      console.log('Longitude:', position.coords.longitude);
-      // Processamento ou uso da localização
-    } catch (error) {
-      console.error('Erro ao capturar a localização:', error);
-      // Trate ou exiba uma mensagem de erro, se necessário
+  async enviarSMS() {
+    const mensagem = 'Teste';
+    
+    for (const contact of this.contacts) {
+      const numeroDestino = contact.phoneNumber;
+    
+      if (numeroDestino) {
+        try {
+          await this.sms.send(numeroDestino, mensagem);
+          console.log('SMS enviado com sucesso para:', numeroDestino);
+        } catch (error) {
+          console.error('Erro ao enviar SMS para', numeroDestino, error);
+        }
+      }
     }
   }
 }
