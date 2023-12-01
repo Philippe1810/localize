@@ -58,6 +58,7 @@ export class UserFormPage implements OnInit {
           duration: 3000
         });
         toast.present();
+        this.navCtrl.navigateRoot('/home');
       }
 
     } catch (error: any) {
