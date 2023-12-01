@@ -1,16 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Captura de Localização</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
     <ion-row>
+      <ion-col offset="4">
+        <ion-label>Captura de localização</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col size="12">
-        <ion-button expand="block" color="primary" (click)="enviarSMS()">
+        <ion-button expand="block" (click)="enviarSMS()">
           Enviar SMS
         </ion-button>
-        <ion-button expand="block" color="primary" (click)="obterLocalizacao()">
+        <ion-button expand="block" (click)="obterLocalizacao()">
           Ativar Rastreamento
         </ion-button>
       </ion-col>
