@@ -1,0 +1,24 @@
+ion-header {
+    --ion-background-color: #fc7c05;
+  }
+  
+  .custom-back-button {
+    --color: white;
+  }
+
+  .title {
+    --color: white !important
+  }
+
+ion-searchbar {
+    margin-top: 20px;
+}
+
+ion-fab-button {
+    --background: #fc7c05;
+    --color: white;
+}
+
+ion-item-options {
+    background-color: white !important; /* Define a cor de fundo para as opções de item deslizante */
+  }

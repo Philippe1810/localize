@@ -1,12 +1,53 @@
+.image-container {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+ion-content img {
+  width: 280px;
+  height: 120px;
+  align-items: center;
+}
+
 .custom-edit-link {
-  color: orange;
+  color: #fc7c05;
 }
 
 ion-button.custom-button {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  font-weight: bold;
+  margin-top: 0px;
+  width: 325px;
+  --border-radius: 10px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-button.ativar-rastreamento {
+  --background: #6dc167;
+  --color: white;
+}
+
+.custom-button.desativar-rastreamento {
+  --background: #f1746c;
+  --color: white;
 }
 
 ion-col.custom-margin {
   margin-top: 5px;
+}
+
+.table-contacts {
+  margin-top: 40px;
+}
+
+.line {
+  border-bottom: 1px solid #ccc; /* Adiciona uma linha na parte inferior da linha de cabeçalho */
+  padding-bottom: 8px; /* Adiciona um preenchimento na parte inferior do cabeçalho */
+  margin-bottom: 8px; /* Adiciona uma margem na parte inferior do cabeçalho */
 }

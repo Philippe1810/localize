@@ -69,7 +69,6 @@ export class HomePage implements OnInit {
   
     if (!temNumero) {
       console.log('Nenhum número de telefone disponível para enviar SMS.');
-      // Adicione aqui o código para lidar com a falta de número de telefone, se necessário.
     }
   }
 
@@ -121,8 +120,7 @@ export class HomePage implements OnInit {
           (position) => {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-  
-            // Construir o link com a latitude e longitude
+
             const link = `http://maps.google.com/?q=${latitude},${longitude}`;
   
             console.log('Link de Localização:', link);
@@ -149,14 +147,13 @@ export class HomePage implements OnInit {
       while (this.isTrackingEnabled) {
         if (shouldPrompt) {
           await this.mostrarPopupConfirmacao();
-          shouldPrompt = false; // Mostra o popup apenas uma vez por ciclo
+          shouldPrompt = false;
         }
   
-        await this.delay(10000); // Espera 10 segundos antes de perguntar novamente
+        await this.delay(300000);
   
-        // Verifica se o popup ainda está aberto após 10 segundos
         await this.enviarSMSSeTimeoutExpirar();
-        shouldPrompt = true; // Habilita o popup para o próximo ciclo
+        shouldPrompt = true;
       }
     }
   }
@@ -182,7 +179,7 @@ export class HomePage implements OnInit {
           text: 'Sim',
           handler: () => {
             clearTimeout(this.confirmationTimeout);
-            this.iniciarRastreamento(); // Reinicia o rastreamento após 10 segundos
+            this.iniciarRastreamento();
           }
         }
       ]
@@ -190,10 +187,9 @@ export class HomePage implements OnInit {
   
     await alert.present();
   
-    // Após 10 segundos, verifica se o popup ainda está aberto e envia SMS se não houver resposta
     this.confirmationTimeout = setTimeout(async () => {
       await this.enviarSMSSeTimeoutExpirar();
-    }, 10000);
+    }, 300000);
   }
 
   async enviarSMSSeTimeoutExpirar() {
@@ -204,23 +200,22 @@ export class HomePage implements OnInit {
         clearTimeout(this.confirmationTimeout);
         this.isTrackingEnabled = false;
         await this.enviarSMS();
-        await alert.dismiss(); // Fecha o popup
+        await alert.dismiss();
       }
     }
   }
 
   rastreamentoAtivado(): boolean {
-    // Suponha que 'isTrackingEnabled' é a variável que controla o estado de rastreamento
     return this.isTrackingEnabled;
   }
 
   async desativarRastreamento() {
     if (this.isTrackingEnabled) {
       this.isTrackingEnabled = false;
-      clearTimeout(this.confirmationTimeout); // Limpa o timeout do popup, se houver
+      clearTimeout(this.confirmationTimeout);
       const alert = await this.alertController.getTop();
       if (alert) {
-        await alert.dismiss(); // Fecha o popup, se estiver aberto
+        await alert.dismiss();
       }
     } else {
       console.log('O rastreamento já está desativado.');

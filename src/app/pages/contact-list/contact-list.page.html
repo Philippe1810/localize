@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-     <ion-title>Contatos</ion-title>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button class="custom-back-button"></ion-back-button>
+      </ion-buttons>
+     <ion-title class="title"><strong>Contatos</strong></ion-title>
   </ion-toolbar>
- </ion-header>
+</ion-header>
  
  <ion-content>
   <ion-searchbar placeholder="Pesquisar"
@@ -30,7 +30,7 @@
   </ion-list>
  
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-     <ion-fab-button color="secondary" [routerLink]="['new']">
+     <ion-fab-button [routerLink]="['new']">
        <ion-icon name="add"></ion-icon>
      </ion-fab-button>
   </ion-fab>

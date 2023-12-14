@@ -1,34 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="image-container">
+    <img src="https://d335luupugsy2.cloudfront.net/cms/files/47031/1702149355/$k0ha9jb0hah" alt="Logo">
+  </div>
+<ion-content>
+
+  <div class="button-container">
   <ion-row>
     <ion-col size="12">
-      <ion-button expand="block" color="success" class="custom-button" (click)="obterLocalizacaoEIniciarRastreamento()">
+      <ion-button expand="block" class="custom-button ativar-rastreamento" (click)="obterLocalizacaoEIniciarRastreamento()">
         Ativar Rastreamento
       </ion-button>
     </ion-col>
   </ion-row>
   
   <ion-row>
-    <ion-col size="12" class="custom-margin">
-      <ion-button expand="block" color="danger" class="custom-button" (click)="desativarRastreamento()">
+    <ion-col size="12">
+      <ion-button expand="block" color="danger" class="custom-button desativar-rastreamento" (click)="desativarRastreamento()">
         Desativar Rastreamento
       </ion-button>
     </ion-col>
   </ion-row>
-    
-    <ion-grid>
+</div>  
+
+    <ion-grid class="table-contacts">
         <ion-row>
           <ion-col size="12">
             <!-- Cabeçalho da Tabela -->
             <ion-row>
-              <ion-col size="8">Contatos</ion-col>
-              <ion-col size="2" class="custom-edit-link" routerLink="/contacts">Editar</ion-col>
+              <ion-col size="8"><strong>Contatos</strong></ion-col>
+              <ion-col size="2" class="custom-edit-link" routerLink="/contacts"><strong>Editar</strong></ion-col>
             </ion-row>
+        <div class="line"></div>
     
             <!-- Linhas da Tabela -->
             <ion-item *ngFor="let contact of contacts">

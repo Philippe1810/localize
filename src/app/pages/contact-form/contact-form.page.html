@@ -1,14 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Cadastro de Contatos</ion-title>
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button class="custom-back-button"></ion-back-button>
+      </ion-buttons>
+     <ion-title class="title"><strong>Cadastro de Contato</strong></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" class="form">
     <ion-item>
       <ion-label position="stacked">Nome</ion-label>
       <ion-input autocapitalize="on" [(ngModel)]="contact.name" name="name"></ion-input>
@@ -18,7 +18,7 @@
       <ion-input [(ngModel)]="contact.phoneNumber" name="phone"></ion-input>
     </ion-item>
     <div class="ion-margin-vertical">
-      <ion-button type="submit" color="secondary" expand="block">Salvar</ion-button>
+      <ion-button class="submit" type="submit" expand="block"><strong>Salvar</strong></ion-button>
     </div>
   </form>
 </ion-content>
